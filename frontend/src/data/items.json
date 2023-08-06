@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "name": "Matcha Cake",
+        "price": 5.99,
+        "imgUrl": "/imgs/cake.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Matcha Crepe",
+        "price": 6.99,
+        "imgUrl": "/imgs/crepe.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Matcha Mochi",
+        "price": 4.99,
+        "imgUrl": "/imgs/mochi.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Matcha Tiramisu",
+        "price": 7.59,
+        "imgUrl": "/imgs/tiramitsu.jpg"
+    }
+
+]
