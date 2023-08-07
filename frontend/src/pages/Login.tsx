@@ -7,17 +7,20 @@ import { useNavigate } from 'react-router-dom';
 interface FormState {
     email: string;
     password: string;
+    usertype: string;
   }
 
 export const LoginForm: React.FC = () => {
     const [formData, setFormData] = useState<FormState>({
         email: '',
         password: '',
+        usertype: '',
     });
 
     const [errors, setErrors] = useState<FormState>({
         email: '',
         password: '',
+        usertype: '',
     });
 
     const navigate = useNavigate();
@@ -30,7 +33,7 @@ export const LoginForm: React.FC = () => {
             formData
           );
           
-          // console.log(response)
+          console.log(formData)
           // debugger;
           if (response.status === 200) {
             console.log("Logged In success")
@@ -49,9 +52,15 @@ export const LoginForm: React.FC = () => {
     
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-      };
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+      
+    };
     
       const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -67,7 +76,7 @@ export const LoginForm: React.FC = () => {
       const validateForm = (): boolean => {
         let isValid = true;
         const { email, password } = formData;
-        const newErrors: FormState = { email: '', password: '' };
+        const newErrors: FormState = { email: '', password: '', usertype: '',};
     
         if (!email.trim()) {
           newErrors.email = 'Email is required';
@@ -111,6 +120,9 @@ export const LoginForm: React.FC = () => {
                             value={formData.email}
                             onChange={handleChange}
                         />
+                      {/* <div className="alert alert-danger">
+                        Please enter a correct email or password.
+                      </div> */}
                         {errors.email && <span className="text-danger">{errors.email}</span>}
                     </div>
 
@@ -127,6 +139,18 @@ export const LoginForm: React.FC = () => {
                         />
                         {errors.password && <span className="text-danger">{errors.password}</span>}
                     </div>
+                    <div className="mb-3">
+                      <label>
+                        Log In as:
+                        <select 
+                          name="usertype"
+                          value={formData.usertype}
+                          onChange={handleSelect}>
+                          <option value="User">User</option>
+                          <option value="Chef">Chef</option>
+                        </select>
+                      </label>
+                    </div>
                     {/* <div className="form-check mb-3">
                         <label className="form-check-label">
                             <input  
@@ -137,7 +161,7 @@ export const LoginForm: React.FC = () => {
                             </input>
                         </label>
                     </div> */}
-                    <button type="submit" className="btn btn-primary">
+                    <button type="submit" className="btn btn-primary mb-2">
                         Log In
                     </button>
                     <p>New User?</p>

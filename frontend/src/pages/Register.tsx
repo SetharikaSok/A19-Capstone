@@ -8,6 +8,7 @@ interface FormState {
     address: string
     email: string;
     password: string;
+    usertype: string;
   }
   
 export const Register: React.FC = () => {
@@ -17,6 +18,7 @@ export const Register: React.FC = () => {
         address: '',
         email: '',
         password: '',
+        usertype: ''
     });
 
     const [errors, setErrors] = useState<FormState>({
@@ -25,13 +27,19 @@ export const Register: React.FC = () => {
         address: '',
         email: '',
         password: '',
+        usertype: ''
     });
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-      };
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+    };
+    const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+      
+    };
     
       const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -40,7 +48,7 @@ export const Register: React.FC = () => {
           handleRegister()
           console.log('Form data:', formData);
           // Clear the form after successful submission
-          setFormData({ fname: '',lname: '', address: '',email: '', password: '' });
+          // setFormData({ fname: '',lname: '', address: '',email: '', password: '' });
         }
       };
       
@@ -50,7 +58,8 @@ export const Register: React.FC = () => {
             "http://localhost:5000/auth",
             formData
           );
-          console.log('Successful registered. Response:', response.data);
+          console.log(formData)
+          // console.log('Successful registered. Response:', response.data);
           if (response.status === 200) {
             console.log("Register is success!")
           }
@@ -63,13 +72,10 @@ export const Register: React.FC = () => {
         }
       };
     
-
-
-    
       const validateForm = (): boolean => {
         let isValid = true;
         const { fname, lname, address, email, password } = formData;
-        const newErrors: FormState = { fname: '',lname: '', address: '',email: '', password: '' };
+        const newErrors: FormState = { fname: '',lname: '', address: '',email: '', password: '', usertype: '' };
 
 
         if (!fname.trim()) {
@@ -181,6 +187,18 @@ export const Register: React.FC = () => {
                             onChange={handleChange}
                         />
                         {errors.password && <span className="text-danger">{errors.password}</span>}
+                    </div>
+                    <div className="mb-3">
+                      <label>
+                        Register as:
+                        <select 
+                          name="usertype"
+                          value={formData.usertype}
+                          onChange={handleSelect}>
+                          <option value="User">User</option>
+                          <option value="Chef">Chef</option>
+                        </select>
+                      </label>
                     </div>
                     {/* <div className="form-check mb-3">
                         <label className="form-check-label">
