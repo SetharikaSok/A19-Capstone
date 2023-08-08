@@ -8,7 +8,6 @@ interface FormState {
     address: string
     email: string;
     password: string;
-    usertype: string;
   }
   
 export const Register: React.FC = () => {
@@ -18,7 +17,6 @@ export const Register: React.FC = () => {
         address: '',
         email: '',
         password: '',
-        usertype: ''
     });
 
     const [errors, setErrors] = useState<FormState>({
@@ -27,7 +25,6 @@ export const Register: React.FC = () => {
         address: '',
         email: '',
         password: '',
-        usertype: ''
     });
 
 
@@ -35,11 +32,11 @@ export const Register: React.FC = () => {
       const { name, value } = e.target;
       setFormData({ ...formData, [name]: value });
     };
-    const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      const { name, value } = e.target;
-      setFormData({ ...formData, [name]: value });
+    // const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    //   const { name, value } = e.target;
+    //   setFormData({ ...formData, [name]: value });
       
-    };
+    // };
     
       const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -75,7 +72,7 @@ export const Register: React.FC = () => {
       const validateForm = (): boolean => {
         let isValid = true;
         const { fname, lname, address, email, password } = formData;
-        const newErrors: FormState = { fname: '',lname: '', address: '',email: '', password: '', usertype: '' };
+        const newErrors: FormState = { fname: '',lname: '', address: '',email: '', password: '' };
 
 
         if (!fname.trim()) {
@@ -188,7 +185,7 @@ export const Register: React.FC = () => {
                         />
                         {errors.password && <span className="text-danger">{errors.password}</span>}
                     </div>
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                       <label>
                         Register as:
                         <select 
@@ -199,7 +196,7 @@ export const Register: React.FC = () => {
                           <option value="Chef">Chef</option>
                         </select>
                       </label>
-                    </div>
+                    </div> */}
                     {/* <div className="form-check mb-3">
                         <label className="form-check-label">
                             <input  

@@ -2,33 +2,33 @@ import { useState } from "react";
 import { Link} from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { UserProfile, setUserProfile } from "../redux/actions/profileAction";
 
 
 interface FormState {
     email: string;
     password: string;
-    usertype: string;
   }
 
 export const LoginForm: React.FC = () => {
     const [formData, setFormData] = useState<FormState>({
         email: '',
         password: '',
-        usertype: '',
     });
 
     const [errors, setErrors] = useState<FormState>({
         email: '',
         password: '',
-        usertype: '',
     });
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     
 
     const handleLogin = async () => {
         try {
-          const response = await axios.post(
+          const response = await axios.post<UserProfile>(
             "http://localhost:5000/auth/login",
             formData
           );
@@ -36,6 +36,10 @@ export const LoginForm: React.FC = () => {
           console.log(formData)
           // debugger;
           if (response.status === 200) {
+
+            console.log(response.data);
+            
+            dispatch(setUserProfile(response.data));
             console.log("Logged In success")
             navigate('/');
           }
@@ -56,11 +60,11 @@ export const LoginForm: React.FC = () => {
       setFormData({ ...formData, [name]: value });
     };
 
-    const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      const { name, value } = e.target;
-      setFormData({ ...formData, [name]: value });
+    // const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    //   const { name, value } = e.target;
+    //   setFormData({ ...formData, [name]: value });
       
-    };
+    // };
     
       const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -76,7 +80,7 @@ export const LoginForm: React.FC = () => {
       const validateForm = (): boolean => {
         let isValid = true;
         const { email, password } = formData;
-        const newErrors: FormState = { email: '', password: '', usertype: '',};
+        const newErrors: FormState = { email: '', password: ''};
     
         if (!email.trim()) {
           newErrors.email = 'Email is required';
@@ -139,7 +143,7 @@ export const LoginForm: React.FC = () => {
                         />
                         {errors.password && <span className="text-danger">{errors.password}</span>}
                     </div>
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                       <label>
                         Log In as:
                         <select 
@@ -150,7 +154,7 @@ export const LoginForm: React.FC = () => {
                           <option value="Chef">Chef</option>
                         </select>
                       </label>
-                    </div>
+                    </div> */}
                     {/* <div className="form-check mb-3">
                         <label className="form-check-label">
                             <input  
