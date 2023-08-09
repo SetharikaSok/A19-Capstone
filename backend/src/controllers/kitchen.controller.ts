@@ -41,5 +41,11 @@ export const kitchenController = {
 
         return res.json({ uniqueKitchen: uniqueKitchen });
     },
+
+    async findAllKitchens(req: Request, res: Response) {
+        const kitchens = await prisma.kitchen.findMany();
+        return res.json(kitchens);
+    },
+
     
 }

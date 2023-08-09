@@ -45,4 +45,9 @@ export const menuItemController = {
         });
         return res.json({ uniqueMenuItem: uniqueMenuItem });
     },
+
+    async findAllMenuItems(req: Request, res: Response) {
+        const  menuItems = await prisma. menuItem.findMany();
+        return res.json( menuItems);
+    },
 }

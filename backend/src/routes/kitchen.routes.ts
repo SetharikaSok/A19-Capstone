@@ -6,5 +6,6 @@ const routes = Router();
 
 routes.post("/",  userController.authmiddleware, kitchenController.createKitchen)
 routes.get("/:id", kitchenController.findUniqueKitchen);
+routes.get("/", kitchenController.findAllKitchens);
 
 export default routes;
