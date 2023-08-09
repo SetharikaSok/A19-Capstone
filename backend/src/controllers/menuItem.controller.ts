@@ -19,7 +19,7 @@ export const menuItemController = {
                 data: {
                     name: name,
                     description: description,
-                    price: price,
+                    price: parseFloat(price+""),
                     category: category,
                     kitchenId: kitchen?.id
                 },
