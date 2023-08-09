@@ -4,7 +4,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -18,6 +18,8 @@ model User {
   address   String?
   usertype  String @default("user")
 
+  
+  kitchen Kitchen?
   orders    Order[] 
 }
 
@@ -28,6 +30,8 @@ model Kitchen {
   contactNumber String
   cuisineType  String
 
+  email         String? @unique
+  user         User? @relation(fields: [email], references: [email])
   menuItems    MenuItem[]
   orders    Order[] 
   
