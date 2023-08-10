@@ -4,7 +4,7 @@ import menuItems from "../data/items.json"
 import { formatCurrency } from "../utilities/formatCurrency"
 
 type CartItemProps = {
-    id: number
+    id: string
     quantity: number
 }
 

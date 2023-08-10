@@ -1,27 +1,35 @@
 [
     {
-        "id": 1,
+        "id": "1",
         "name": "Matcha Cake",
         "price": 5.99,
-        "imgUrl": "/imgs/cake.jpg"
+        "imgUrl": "/imgs/cake.jpg",
+        "description": "This is a good cake.",
+        "category": "Desert"
     },
     {
-        "id": 2,
+        "id": "2",
         "name": "Matcha Crepe",
         "price": 6.99,
-        "imgUrl": "/imgs/crepe.jpg"
+        "imgUrl": "/imgs/crepe.jpg",
+        "description": "This is a good crepe.",
+        "category": "Desert"
     },
     {
-        "id": 3,
+        "id": "3",
         "name": "Matcha Mochi",
         "price": 4.99,
-        "imgUrl": "/imgs/mochi.jpg"
+        "imgUrl": "/imgs/mochi.jpg",
+        "description": "This is the finest mochi.",
+        "category": "Desert"
     },
     {
-        "id": 4,
+        "id": "4",
         "name": "Matcha Tiramisu",
         "price": 7.59,
-        "imgUrl": "/imgs/tiramitsu.jpg"
+        "imgUrl": "/imgs/tiramitsu.jpg",
+        "description": "This is a good treat.",
+        "category": "Desert"
     }
 
 ]

@@ -11,9 +11,11 @@ export type MenuItemState = {
     description: string
     category: string
     imgUrl: string
+    file: File | null
 }
 
 export const NewItemForm: React.FC = () => {
+        
         const [formData, setFormData] = useState<MenuItemState>({
             id: '',
             name: '',
@@ -21,61 +23,76 @@ export const NewItemForm: React.FC = () => {
             description: '',
             category: '',
             imgUrl: '',
+            file: null,
         });
 
         const [errors, setErrors] = useState<MenuItemState>({
             id: '',
             name: '',
-            price: 0,
+            price: 0.00,
             description: '',
             category: '',
             imgUrl: '',
+            file: null,
         });
+
+        
+
 
         const stateUserProfile = useSelector((state: any) => state.userProfile) as UserProfile;
 
         const handleNewItem = async (token:string) => {
             try {
 
-            const customHeaders = {
-                'token': token,
-            };
-        
-            const response = await axios.post(
-                "http://localhost:5000/menuItem",
-                formData,
-                { headers: customHeaders }
-            );
-            console.log(formData)
-            // console.log('Successful registered. Response:', response.data);
-            if (response.status === 200) {
-                console.log(" New item is successfully created!")
-            }
-            else {
-                console.log("Item is failed to create.")
-            }
+                const customHeaders = {
+                    'token': token,
+                    "Content-Type": "multipart/form-data"
+                };
+            
+                const response = await axios.post(
+                    "http://localhost:5000/menuItem",
+                    formData,
+                    { headers: customHeaders }
+                );
+                console.log(formData)
+
+                // console.log('Successful registered. Response:', response.data);
+                if (response.status === 200) {
+                    console.log(" New item is successfully created!")
+                }
+                else {
+                    console.log("Item is failed to create.")
+                }
             //   setErrors(null); // Clear any previous errors if login succeeds
             } catch (err) {
                 console.error('Submision is failed:', errors);
             }
         };
 
-        const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            const { name, value } = e.target;
+        const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+            if (event.target.files) {
+                //setSelectedFile(event.target.files[0]);
+                const { name } = event.target;
+                setFormData({ ...formData, [name]: event.target.files[0] });
+            }
+        };
+
+        const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+            const { name, value } = event.target;
             setFormData({ ...formData, [name]: value });
         };
 
-        const handleDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-            const { name, value } = e.target;
+        const handleDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+            const { name, value } = event.target;
             setFormData({ ...formData, [name]: value });
         };
 
-        const handleSubmit = (e: React.FormEvent) => {
-            e.preventDefault();
+        const handleSubmit = (event: React.FormEvent) => {
+            event.preventDefault();
             if (validateForm()) {
             // Handle form submission (e.g., API call, save data, etc.)
             handleNewItem(stateUserProfile.webtoken);
-            console.log('Form data:', formData);
+            console.log('bodyFormData:', formData);
             // Clear the form after successful submission
             // setFormData({ id: '',name: '',price: 0,description: '',category: '',imgUrl: '', });
             }
@@ -84,14 +101,15 @@ export const NewItemForm: React.FC = () => {
 
         const validateForm = (): boolean => {
             let isValid = true;
-            const { id, name, price, description, category, imgUrl } = formData;
+            const { id, name, price, description, category, imgUrl, file } = formData;
             const newErrors: MenuItemState = { 
                 id: '',
                 name: '',
-                price: 0,
+                price: 0.00,
                 description: '',
                 category: '',
                 imgUrl: '', 
+                file: null
             };
 
 
@@ -117,10 +135,14 @@ export const NewItemForm: React.FC = () => {
             // isValid = false;
             // }
             
-            // if (!price.()) {
+            // if (!price.trim()) {
             //     newErrors.price = 'Price is required';
             //     isValid = false;
             // }
+
+            if (!formData.file) {
+                alert("Please select an image file!");
+            }
         
             setErrors(newErrors);
             return isValid;
@@ -129,11 +151,13 @@ export const NewItemForm: React.FC = () => {
     
     return (
         <div className="mb-3">
-            <Link to="/kitchen" className=" w-50 text-black-50">Back to kitchen</Link>
+            {/* <Link to="/kitchen" className=" w-50 text-black-50">Back to kitchen</Link> */}
+            <Link to="/myaccount" className=" w-50 text-black-50">Back to My Account</Link>
             <div className="bg-white p-3 rounded w-50">
                 <form action="" onSubmit={handleSubmit}>
+                <h2>Menu Form</h2>
                     <div className="mb-3">
-                        <label htmlFor="name" className="form-label"><strong>Name:</strong></label>
+                        <label htmlFor="name" className="form-label"><strong>Item's Name:</strong></label>
                         <input 
                             type="text"
                             className="form-control" 
@@ -185,12 +209,16 @@ export const NewItemForm: React.FC = () => {
                         {errors.price && <span className="text-danger">{errors.price}</span>}
                     </div>
                     <div className="m-3">
-                        <label className="mx-3"><strong>Choose a file:</strong>: </label>
-                        <input className="d-none" type="file" />
-                        <button className="btn btn-outline-primary">Upload</button>
+                        <label className="mx-3"> </label>
+                        <input 
+                            className="form-control" 
+                            type="file" 
+                            name="file" 
+                            onChange={handleFileChange} />
+                        {/* <button className="btn btn-outline-primary">Upload</button> */}
                     </div>
                     <button type="submit" className="btn btn-primary mb-2">
-                        Save
+                        Submit
                     </button>
                     
                 </form>

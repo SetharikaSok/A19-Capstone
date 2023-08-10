@@ -5,10 +5,12 @@ import { Home } from "./pages/Home";
 import { Kitchen } from "./pages/Kitchen";
 import { MyAccount } from "./pages/MyAccount";
 import {LoginForm} from "./pages/Login";
-import {Register} from "./pages/Register";
+import {Register} from "./components/Register";
 import { Navbar } from "./components/Navbar";
 import { OrderCartProvider } from "./context/OrderCartContext"
 import { ProtectedRoutes } from "./ProtectedRouts";
+import { NewItemForm } from "./components/NewItemForm";
+import { NewKitchenForm } from "./components/NewKitchenForm";
 
 
 function App() {
@@ -19,7 +21,8 @@ function App() {
       <Container className="mb-4">
           <Routes>
             <Route path="/" element={ <Home />} />
-            {/* <Route path="/kitchen" element={ <Kitchen />} /> */}
+            <Route path="/newItemForm" element={ <NewItemForm />} />
+            <Route path="/newKitchenForm" element={ <NewKitchenForm />} />
             <Route path="/register" element={ <Register />} />
             <Route path="/login" element={ <LoginForm />} />
             <Route element={ <ProtectedRoutes />} />

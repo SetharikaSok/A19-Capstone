@@ -1,15 +1,9 @@
 import { Button, Card } from "react-bootstrap"
 import { formatCurrency } from "../utilities/formatCurrency"
 import { useOrderCart } from "../context/OrderCartContext"
+import { MenuItemState } from "./NewItemForm"
 
-type MenuItemProps = {
-    id: number
-    name: string
-    price: number
-    imgUrl: string
-}
-
-export function MenuItem({ id, name, price, imgUrl }:MenuItemProps) {
+export function MenuItem({ id, name, price, imgUrl }:MenuItemState) {
 
     const {getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart} = useOrderCart()
 

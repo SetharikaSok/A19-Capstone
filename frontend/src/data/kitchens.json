@@ -1,0 +1,27 @@
+[
+    {
+        "id": "1",
+        "name": "Jenni Hotpot",
+        "imgUrl": "/imgs/hot pot.jpg",
+        "category": "Chinese"
+    },
+    {
+        "id": "2",
+        "name": "Matcha House",
+        "imgUrl": "/imgs/cake.jpg",
+        "category": "Desert"
+    },
+    {
+        "id": "3",
+        "name": "Curry house",
+        "imgUrl": "/imgs/Curry.jpg",
+        "category": "Indian"
+    },
+    {
+        "id": "4",
+        "name": "Khmer Kitchen",
+        "imgUrl": "/imgs/amok.jpg",
+        "category": "Cambodian"
+    }
+
+]

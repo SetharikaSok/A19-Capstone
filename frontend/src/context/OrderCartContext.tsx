@@ -7,17 +7,17 @@ type OrderCartProviderProps = {
 }
 
 type CartItem = {
-    id: number
+    id: string
     quantity: number
 }
 
 type OrderCartContext = {
     openCart: () => void
     closeCart: () => void
-    getItemQuantity: (id: number) => number
-    increaseCartQuantity: (id: number) => void
-    decreaseCartQuantity: (id: number) => void
-    removeFromCart: (id: number) => void
+    getItemQuantity: (id: string) => number
+    increaseCartQuantity: (id: string) => void
+    decreaseCartQuantity: (id: string) => void
+    removeFromCart: (id: string) => void
     cartQuantity: number
     cartItems: CartItem[]
 }
@@ -45,11 +45,11 @@ export function OrderCartProvider({ children}: OrderCartProviderProps) {
 
     const closeCart = () => setIsOpen(false)
 
-    function getItemQuantity(id: number) {
+    function getItemQuantity(id: string) {
         return cartItems.find(item => item.id === id)?.quantity || 0
     }
 
-    function increaseCartQuantity(id: number) {
+    function increaseCartQuantity(id: string) {
         setCartItems(currentItems => {
             if (currentItems.find(item => item.id === id) == null) {
                 return [...currentItems, {id, quantity: 1 }]
@@ -65,7 +65,7 @@ export function OrderCartProvider({ children}: OrderCartProviderProps) {
         })
     }
 
-    function decreaseCartQuantity(id: number) {
+    function decreaseCartQuantity(id: string) {
         setCartItems(currentItems => {
             if (currentItems.find(item => item.id === id)?.quantity === 1) {
                 return currentItems.filter(item => item.id !== id)    
@@ -81,7 +81,7 @@ export function OrderCartProvider({ children}: OrderCartProviderProps) {
         })
     }
  
-    function removeFromCart(id: number) {
+    function removeFromCart(id: string) {
         setCartItems(currentItems => {
             return currentItems.filter(item => item.id !== id)
         })

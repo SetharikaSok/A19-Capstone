@@ -5,29 +5,35 @@ import axios from "axios";
 import { UserProfile } from "../redux/actions/profileAction";
 
 
-type kitchenState = {
+export type KitchenState = {
     id: string
     name: string
     address: string
     contact: string
     cuisineType: string
+    imgUrl: string
+    file: File | null
 }
 
 export const NewKitchenForm: React.FC = () => {
-    const [formData, setFormData] = useState<kitchenState>({
+    const [formData, setFormData] = useState<KitchenState>({
         id: '',
         name: '',
         address: '',
         contact: '',
         cuisineType: '',
+        imgUrl: '',
+        file: null
     });
 
-    const [errors, setErrors] = useState<kitchenState>({
+    const [errors, setErrors] = useState<KitchenState>({
         id: '',
         name: '',
         address: '',
         contact: '',
         cuisineType: '',
+        imgUrl: '',
+        file: null,
     });
 
     const stateUserProfile = useSelector((state: any) => state.userProfile) as UserProfile;
@@ -37,6 +43,7 @@ export const NewKitchenForm: React.FC = () => {
 
         const customHeaders = {
             'token': token,
+            "Content-Type": "multipart/form-data"
         };
 
         const response = await axios.post(
@@ -55,6 +62,14 @@ export const NewKitchenForm: React.FC = () => {
         //   setErrors(null); // Clear any previous errors if login succeeds
         } catch (err) {
             console.error('Submision is failed:', errors);
+        }
+    };
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files) {
+            //setSelectedFile(event.target.files[0]);
+            const { name } = event.target;
+            setFormData({ ...formData, [name]: event.target.files[0] });
         }
     };
 
@@ -77,13 +92,15 @@ export const NewKitchenForm: React.FC = () => {
 
     const validateForm = (): boolean => {
         let isValid = true;
-        const { id, name, address, contact, cuisineType: cuisineType} = formData;
-        const newErrors: kitchenState = { 
+        const { id, name, address, contact, cuisineType, imgUrl, file} = formData;
+        const newErrors: KitchenState = {
             id: '',
             name: '',
             address: '',
             contact: '',
-            cuisineType: '', 
+            cuisineType: '',
+            imgUrl: '',
+            file: null
         };
 
         if (!name.trim()) {
@@ -108,6 +125,10 @@ export const NewKitchenForm: React.FC = () => {
             newErrors.cuisineType = 'Cuisine Type is required';
             isValid = false;
         }
+
+        if (!formData.file) {
+            alert("Please select an image file!");
+        }
     
         setErrors(newErrors);
         return isValid;
@@ -119,6 +140,7 @@ export const NewKitchenForm: React.FC = () => {
         <Link to="/myaccount" className=" w-50 text-black-50">Back to My Account</Link>
         <div className="bg-white p-3 rounded w-50">
             <form action="" onSubmit={handleSubmit}>
+            <h2>Kitchen Form</h2>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label"><strong>Kitchen's Name:</strong></label>
                     <input 
@@ -170,6 +192,15 @@ export const NewKitchenForm: React.FC = () => {
                     />
                     {errors.cuisineType && <span className="text-danger">{errors.cuisineType}</span>}
                 </div>
+                <div className="m-3">
+                        <label className="mx-3"><strong>Choose a file:</strong> </label>
+                        <input 
+                            className="form-control"
+                            name="file" 
+                            type="file" 
+                            onChange={handleFileChange} />
+                        {/* <button className="btn btn-outline-primary">Upload</button> */}
+                    </div>
                 <button type="submit" className="btn btn-primary mb-2">
                     Save
                 </button>
