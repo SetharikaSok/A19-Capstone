@@ -1,11 +1,19 @@
 import prisma from "../services/prisma";
 import { Request, Response } from "express";
 import { CustomRequest } from "./user.controller";
+import { imageController } from "./image.controller";
+
 
 export const menuItemController = {
 
     async createMenuItem(req: Request, res: Response) {
         const email = (req as CustomRequest).email
+        
+        //file
+        if (!req.file) {
+            return res.status(400).send('No file uploaded.');
+        }
+        
         const {name, description, price, category} = req.body;
 
         const kitchen = await prisma.kitchen.findUnique({
@@ -13,6 +21,8 @@ export const menuItemController = {
                 email: email
             }
         })
+
+        const image_location = await imageController.upload(req.file);
         
         if (kitchen) {
             const menuItem = await prisma.menuItem.create({
@@ -21,7 +31,8 @@ export const menuItemController = {
                     description: description,
                     price: parseFloat(price+""),
                     category: category,
-                    kitchenId: kitchen?.id
+                    kitchenId: kitchen?.id,
+                    imgUrl: image_location
                 },
                 include: {
                     kitchen: true,
@@ -50,4 +61,18 @@ export const menuItemController = {
         const  menuItems = await prisma. menuItem.findMany();
         return res.json( menuItems);
     },
+
+    // async readImage(req: Request, res: Response) {
+    //     const paramsGetObject = {
+    //         Bucket: bucketName,
+    //         Key: req.file.originalname,
+    //       };
+
+    //     // const getresponse = await s3.getSignedUrlPromise("getObject", paramsGetObject)
+        
+    //     const data1 = await s3.getObject(paramsGetObject).promise();
+
+    //     return res.status
+
+    // }
 }

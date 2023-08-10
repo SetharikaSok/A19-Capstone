@@ -1,12 +1,20 @@
 import prisma from "../services/prisma";
 import { Request, Response } from "express";
 import { CustomRequest } from "./user.controller";
+import { imageController } from "./image.controller";
 
 export const kitchenController = {
 
     async createKitchen(req: Request, res: Response) {
         const email = (req as CustomRequest).email
-        const {name, address, contact, cuisineType} = req.body; 
+        const {name, address, contact, cuisineType, imgUrl} = req.body; 
+
+        //file
+        if (!req.file) {
+            return res.status(400).send('No file uploaded.');
+        }
+
+        const image_location = await imageController.upload(req.file);
 
         if (email) {
             const kitchen = await prisma.kitchen.create({
@@ -15,7 +23,8 @@ export const kitchenController = {
                     address: address,
                     contactNumber: contact,
                     cuisineType: cuisineType,
-                    email: email
+                    email: email,
+                    imgUrl: image_location
                 },
                 include: {
                     menuItems: true,

@@ -33,7 +33,7 @@ export const userController = {
         return res.json(users);
     },
     async createUser(req: Request, res: Response) {
-        const {fname, lname, email, password, address} = req.body;
+        const {fname, lname, email, password, address, usertype} = req.body;
         const hash_password = await bcrypt.hash(password, 12);
         const webtoken = jwt.sign({"email": email}, JWT_KEY);
         const user = await prisma.user.create({

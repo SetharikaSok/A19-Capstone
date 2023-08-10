@@ -29,6 +29,7 @@ model Kitchen {
   address      String
   contactNumber String
   cuisineType  String
+  imgUrl       String @default("")
 
   email         String? @unique
   user         User? @relation(fields: [email], references: [email])
@@ -43,6 +44,7 @@ model MenuItem {
   description   String
   price         Float
   category      String
+  imgUrl       String @default("")
 
   kitchen       Kitchen @relation(fields: [kitchenId], references: [id])
   kitchenId     String
