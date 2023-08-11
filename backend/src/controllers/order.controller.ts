@@ -54,6 +54,30 @@ export const orderController = {
             console.log(err);
             return res.status(500).json({msg: err})
         }
+    },
+
+    async findUniqueOrder(req: Request, res: Response) {
+        const paramId = req.params.id
+
+        const uniqueOrder = await prisma.order.findUnique({
+            where: {
+                id: paramId
+            },
+            include: {
+                orderItem: true,
+            }
+        })
+        return res.json({uniqueOrder: uniqueOrder})
+    },
+
+    async findAllOrder(req: Request, res: Response) {
+        const allOrder = await prisma.order.findMany({
+            include: {
+                orderItem: true,
+            }
+        });
+
+        return res.json({order: allOrder})
     }
 
 }
