@@ -9,5 +9,6 @@ routes.get("/dashboard", userController.authmiddleware, userController.dashboard
 routes.post("/", userController.createUser);
 routes.get("/:id", userController.findUniqueUser);
 routes.put("/:id", userController.updateUser);
+routes.delete("/:id", userController.deleteUser);
 
 export default routes;

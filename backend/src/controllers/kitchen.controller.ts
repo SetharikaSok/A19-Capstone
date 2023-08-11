@@ -56,5 +56,17 @@ export const kitchenController = {
         return res.json(kitchens);
     },
 
+    // async deleteUser(req: Request, res: Response) {
+    //     const paramId = req.params.id;
+
+    //     const deletedUser = await prisma.user.delete({
+    //         where: {
+    //             id: paramId,
+    //         }
+    //     }); 
+
+    //     return res.json({ deletedUser: deletedUser });
+    // }
+
     
 }
