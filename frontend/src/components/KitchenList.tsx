@@ -2,7 +2,7 @@ import { KitchenState } from "./NewKitchenForm";
 import { Card } from "react-bootstrap";
 
 
-export function KitchenList({ id, name, imgUrl }:KitchenState) {
+export function KitchenList({ id, name, city, state, zipcode, imgUrl }:KitchenState) {
     return (
         <>
             <Card.Img
@@ -15,6 +15,9 @@ export function KitchenList({ id, name, imgUrl }:KitchenState) {
                 <Card.Title className="d-flex justify-content-space-between align-items-baseline mb-4">
                     <span className="fs-2">{name}</span>
                 </Card.Title>
+                <Card.Footer className="d-flex justify-content-space-between align-items-baseline mb-4">
+                    <span className="fs-6">{city}, {state}, {zipcode}</span>
+                </Card.Footer>
             </Card.Body>
         </>
     )

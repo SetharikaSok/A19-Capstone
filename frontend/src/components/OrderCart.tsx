@@ -3,6 +3,7 @@ import { useOrderCart } from "../context/OrderCartContext"
 import { CartItem } from "./CartItem"
 import { formatCurrency } from "../utilities/formatCurrency"
 import menuItems from "../data/items.json"
+import { Link } from "react-router-dom"
 
 type OrderCartProps = {
     isOpen: boolean
@@ -28,6 +29,9 @@ export function OrderCart({ isOpen }: OrderCartProps) {
                                 return total + (item?.price || 0) * cartItem.quantity
                             }, 0)
                         )}
+                    </div>
+                    <div>
+                        <Link to="/checkOut" className="btn btn-defual border w-100 bg-secondary">Check out</Link>
                     </div>
                 </Stack>
             </Offcanvas.Body>

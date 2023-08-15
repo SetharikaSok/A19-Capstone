@@ -1,21 +1,28 @@
 import { Col, Row } from "react-bootstrap"
 import { MenuItem } from "../components/MenuItem"
 // import menuItems from "../data/items.json"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { useState } from "react";
 import { MenuItemState } from "../components/NewItemForm";
 import React from "react";
 import axios from "axios";
 
-export function Kitchen() {
+// interface KitchenProps {
+//     kitchenId: string;
+// }
+
+const Kitchen: React.FC = () => {
     const [formData, setFormData] = useState<MenuItemState[]>([]);
+    const location = useLocation()
+    const { kitchenIdStr } = location.state
     
     React.useEffect(() => {
+        console.log("KitchnId" + kitchenIdStr);
         axios
-          .get("http://localhost:5000/menuItem")
+          .get(`http://localhost:5000/menuItem/kitchen/${kitchenIdStr}`)
           .then((response) => {
             setFormData(response.data);
-            console.log("Call All kitchen", response.data)
+            console.log("Call All Menuitem", response.data)
           });
       }, []);
     return (
@@ -31,3 +38,6 @@ export function Kitchen() {
         </>
     )
 };
+
+export default Kitchen;
+

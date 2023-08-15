@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { Home } from "./pages/Home";
-import { Kitchen } from "./pages/Kitchen";
+import  Kitchen  from "./pages/Kitchen";
 import { MyAccount } from "./pages/MyAccount";
 import {LoginForm} from "./pages/Login";
 import {Register} from "./components/Register";
@@ -11,6 +11,7 @@ import { OrderCartProvider } from "./context/OrderCartContext"
 import { ProtectedRoutes } from "./ProtectedRouts";
 import { NewItemForm } from "./components/NewItemForm";
 import { NewKitchenForm } from "./components/NewKitchenForm";
+import { CheckOut } from "./components/checkOut";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route element={ <ProtectedRoutes />} />
               <Route path="/myaccount" element={ <MyAccount />} />
               <Route path="/kitchen" element={ <Kitchen />} />
+              <Route path="/checkOut" element={ <CheckOut />} />
           </Routes>
       </Container>
     </OrderCartProvider>

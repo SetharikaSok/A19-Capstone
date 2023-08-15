@@ -8,7 +8,12 @@ import { UserProfile } from "../redux/actions/profileAction";
 export type KitchenState = {
     id: string
     name: string
-    address: string
+    address1: string
+    address2: string
+    city: string
+    state: string
+    country:string
+    zipcode: string
     contact: string
     cuisineType: string
     imgUrl: string
@@ -19,7 +24,12 @@ export const NewKitchenForm: React.FC = () => {
     const [formData, setFormData] = useState<KitchenState>({
         id: '',
         name: '',
-        address: '',
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        country:'',
+        zipcode: '',
         contact: '',
         cuisineType: '',
         imgUrl: '',
@@ -29,11 +39,16 @@ export const NewKitchenForm: React.FC = () => {
     const [errors, setErrors] = useState<KitchenState>({
         id: '',
         name: '',
-        address: '',
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        country:'',
+        zipcode: '',
         contact: '',
         cuisineType: '',
         imgUrl: '',
-        file: null,
+        file: null
     });
 
     const stateUserProfile = useSelector((state: any) => state.userProfile) as UserProfile;
@@ -92,11 +107,16 @@ export const NewKitchenForm: React.FC = () => {
 
     const validateForm = (): boolean => {
         let isValid = true;
-        const { id, name, address, contact, cuisineType, imgUrl, file} = formData;
+        const { id, name, address1, address2, city, state, country, zipcode, contact, cuisineType, imgUrl, file} = formData;
         const newErrors: KitchenState = {
             id: '',
             name: '',
-            address: '',
+            address1: '',
+            address2: '',
+            city: '',
+            state: '',
+            country:'',
+            zipcode: '',
             contact: '',
             cuisineType: '',
             imgUrl: '',
@@ -108,8 +128,8 @@ export const NewKitchenForm: React.FC = () => {
             isValid = false;
         }
     
-        if (!address.trim()) {
-            newErrors.address = 'Address is required';
+        if (!address1.trim()) {
+            newErrors.address1 = 'Address is required';
             isValid = false;
         }
     
@@ -154,18 +174,84 @@ export const NewKitchenForm: React.FC = () => {
                     />
                     {errors.name && <span className="text-danger">{errors.name}</span>}
                 </div>
+                
                 <div className="mb-3">
-                    <label htmlFor="address" className="form-label"><strong>Kitchen's Address:</strong></label>
+                    <label htmlFor="address1" className="form-label"><strong>Kitchen's Address1:</strong></label>
                     <input 
                         type="text" 
                         className="form-control" 
-                        id="address"
+                        id="address1"
                         placeholder="Enter address"
-                        name="address"
-                        value={formData.address}
+                        name="address1"
+                        value={formData.address1}
                         onChange={handleChange}
                     />
-                    {errors.address && <span className="text-danger">{errors.address}</span>}
+                    {errors.address1 && <span className="text-danger">{errors.address1}</span>}
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="address2" className="form-label"><strong>Address2:</strong></label>
+                    <input 
+                        type="text" 
+                        className="form-control" 
+                        id="address2"
+                        placeholder="apt,..."
+                        name="address2"
+                        value={formData.address2}
+                        onChange={handleChange}
+                    />
+                    {/* {errors.address1 && <span className="text-danger">{errors.address1}</span>} */}
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="city" className="form-label"><strong>City:</strong></label>
+                    <input 
+                        type="text" 
+                        className="form-control" 
+                        id="city"
+                        placeholder="Enter city"
+                        name="city"
+                        value={formData.city}
+                        onChange={handleChange}
+                    />
+                    {/* {errors.address1 && <span className="text-danger">{errors.address1}</span>} */}
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="state" className="form-label"><strong>State:</strong></label>
+                    <input 
+                        type="text" 
+                        className="form-control" 
+                        id="state"
+                        placeholder="Enter state"
+                        name="state"
+                        value={formData.state}
+                        onChange={handleChange}
+                    />
+                    {/* {errors.address1 && <span className="text-danger">{errors.address1}</span>} */}
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="country" className="form-label"><strong>Country:</strong></label>
+                    <input 
+                        type="text" 
+                        className="form-control" 
+                        id="country"
+                        placeholder="Enter country"
+                        name="country"
+                        value={formData.country}
+                        onChange={handleChange}
+                    />
+                    {/* {errors.address1 && <span className="text-danger">{errors.address1}</span>} */}
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="zipcode" className="form-label"><strong>Zip Code:</strong></label>
+                    <input 
+                        type="text" 
+                        className="form-control" 
+                        id="zipcode"
+                        placeholder="Enter zipcode"
+                        name="zipcode"
+                        value={formData.zipcode}
+                        onChange={handleChange}
+                    />
+                    {/* {errors.address1 && <span className="text-danger">{errors.address1}</span>} */}
                 </div>
                 <div className="mb-3">
                     <label htmlFor="contact" className="form-label"><strong>Contact:</strong></label>

@@ -11,16 +11,33 @@ export function Navbar() {
                 <Nav.Link to="/" as={NavLink}>
                     Home
                 </Nav.Link>
-                <Nav.Link to="/kitchen" as={NavLink}>
+                {/* <Nav.Link to="/kitchen" as={NavLink}>
                     Kitchen
-                </Nav.Link>
+                </Nav.Link> */}
                 <Nav.Link to="/myaccount" as={NavLink}>
-                    My Account
+                    MyAccount
                 </Nav.Link>
                 <Nav.Link to="/login" as={NavLink}>
                     Login
                 </Nav.Link>
             </Nav>
+            {/* <div>
+                <div className="container mt-4"></div>
+                <form className="d-flex">
+                    <input className="form-control" type="search" placeholder="Search by Zip, City"/>
+                    <button className="btn btn-outline-info">Search</button>
+                </form>
+            </div> */}
+            <div className="container mt-4">
+                <div className="row justify-content-center">
+                    <div className="col-md-6">
+                    <form className="d-flex">
+                        <input className="form-control me-2" type="search" placeholder="Search by Zip, City" aria-label="Search"/>
+                        <button className="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                    </div>
+                </div>
+                </div>
             {cartQuantity > 0 && (
             <Button 
                 onClick={openCart}

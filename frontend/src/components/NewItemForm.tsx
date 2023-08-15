@@ -94,7 +94,7 @@ export const NewItemForm: React.FC = () => {
             handleNewItem(stateUserProfile.webtoken);
             console.log('bodyFormData:', formData);
             // Clear the form after successful submission
-            // setFormData({ id: '',name: '',price: 0,description: '',category: '',imgUrl: '', });
+            // setFormData({ id: '',name: '',price: ,description: '',category: '',imgUrl: '', });
             }
         };
 
@@ -194,19 +194,19 @@ export const NewItemForm: React.FC = () => {
                         />
                         {errors.category && <span className="text-danger">{errors.category}</span>}
                     </div>
-                    <div className="input-group-text">
-                        <label htmlFor="price" className="form-label"><strong>Price:</strong></label>
-                        <span className="input-group-text">$</span>
-                        <input 
-                            type="number"
-                            className="form-control" 
-                            id="price"
-                            placeholder="USD"
+                    <div className="mb-3">
+                        <label className="form-label" htmlFor="email">Price</label>
+                        <div className="input-group">
+                            <span className="input-group-text">$</span>
+                            <input 
+                            type="number" 
+                            id="orice" 
+                            className="form-control"
                             name="price"
                             value={formData.price}
-                            onChange={handleChange}
-                        />
-                        {errors.price && <span className="text-danger">{errors.price}</span>}
+                            onChange={handleChange}>
+                            </input>   
+                        </div>
                     </div>
                     <div className="m-3">
                         <label className="mx-3"> </label>
