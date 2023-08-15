@@ -1,5 +1,5 @@
 import express, { Request } from "express";
-import { kitchenRoutes, menuItemRoutes, orderRoutes, userRoutes } from "./routes";
+import { kitchenRoutes, locationRoutes, menuItemRoutes, orderRoutes, userRoutes } from "./routes";
 import cors from "cors";
 // import multer from 'multer';
 // const storage = multer.memoryStorage()
@@ -27,6 +27,7 @@ class App {
         this.server.use("/kitchen", kitchenRoutes);
         this.server.use("/menuItem", menuItemRoutes);
         this.server.use("/order", orderRoutes);
+        this.server.use("/location", locationRoutes);
     }
 
     

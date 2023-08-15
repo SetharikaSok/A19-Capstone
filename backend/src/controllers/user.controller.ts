@@ -28,10 +28,7 @@ export const userController = {
             res.status(500).json({"msg": "error token"});
         }
     },
-    async index(req: Request, res: Response) {
-        const users = await prisma.user.findMany();
-        return res.json(users);
-    },
+
     async createUser(req: Request, res: Response) {
         const {fname, lname, email, password, address, usertype} = req.body;
         const hash_password = await bcrypt.hash(password, 12);
@@ -55,6 +52,7 @@ export const userController = {
 
         return res.json({ user:user })
     },
+
     async loginUser(req: Request, res: Response) {
         const {email, password} = req.body;
 
@@ -71,11 +69,18 @@ export const userController = {
         
         return res.status(400).json({"error_message": "Email or Password didn't match"})
     },
+
     async dashboard(req: Request, res: Response) {
         const email = (req as CustomRequest).email
         
 
     },
+
+    async index(req: Request, res: Response) {
+        const users = await prisma.user.findMany();
+        return res.json(users);
+    },
+
     async findUniqueUser(req: Request, res: Response) {
         const paramId = req.params.id;
 
@@ -87,6 +92,7 @@ export const userController = {
 
         return res.json({ uniqueUser: uniqueUser });
     },
+
     async updateUser(req: Request, res: Response) {
         const paramId = req.params.id;
         const address = req.body.address;
@@ -102,6 +108,7 @@ export const userController = {
 
         return res.json({ updateUser: updateUser });
     },
+
     async deleteUser(req: Request, res: Response) {
         const paramId = req.params.id;
 

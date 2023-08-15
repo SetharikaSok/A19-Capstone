@@ -7,8 +7,9 @@ export const kitchenController = {
 
     async createKitchen(req: Request, res: Response) {
         const email = (req as CustomRequest).email
-        const {name, address, contact, cuisineType, imgUrl} = req.body; 
+        const {name, address1, address2, city, state, country, zipcode, latitude, longitude, contact, cuisineType, imgUrl} = req.body; 
 
+        // find lat/lon of created kitchen
         //file
         if (!req.file) {
             return res.status(400).send('No file uploaded.');
@@ -20,7 +21,14 @@ export const kitchenController = {
             const kitchen = await prisma.kitchen.create({
                 data: {
                     name: name,
-                    address: address,
+                    address1: address1, //30022
+                    address2: address2,
+                    city: city,
+                    state: state,
+                    country:country,
+                    zipcode: zipcode,
+                    latitude: latitude,
+                    longitude: longitude,
                     contactNumber: contact,
                     cuisineType: cuisineType,
                     email: email,
@@ -56,17 +64,33 @@ export const kitchenController = {
         return res.json(kitchens);
     },
 
-    // async deleteUser(req: Request, res: Response) {
-    //     const paramId = req.params.id;
+    async deleteKitchen(req: Request, res: Response) {
+        const paramId = req.params.id;
 
-    //     const deletedUser = await prisma.user.delete({
-    //         where: {
-    //             id: paramId,
-    //         }
-    //     }); 
+        const deletedKitchen = await prisma.kitchen.delete({
+            where: {
+                id: paramId,
+            }
+        }); 
 
-    //     return res.json({ deletedUser: deletedUser });
-    // }
+        return res.json({ deletedKitchen: deletedKitchen });
+    },
+
+    async deleteAll(req: Request, res: Response) {
+
+        //const deletedkitchen = await prisma.kitchen.deleteMany();
+        // const deletedUser = await prisma.user.deleteMany();
+        // const deletedMenuItem = await prisma.menuItem.deleteMany();
+        // const deletedOrder = await prisma.order.deleteMany();
+
+        const tableNames = ['Kitchen', 'MenuItem', 'User', 'Order', 'OrderItem'];
+
+        for (const tableName of tableNames) 
+            await prisma.$queryRawUnsafe(`Truncate "${tableName}" restart identity cascade;`);
+        
+
+        return res.json({ deletedAll: "" });
+    }
 
     
 }

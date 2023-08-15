@@ -54,14 +54,33 @@ export const menuItemController = {
                 id: paramId,
             }
         });
+        // console.log('menuId:', paramId)
+
         return res.json({ uniqueMenuItem: uniqueMenuItem });
     },
 
     async findAllMenuItems(req: Request, res: Response) {
-        const  menuItems = await prisma. menuItem.findMany();
+        const paramId = req.params.kitchenId;
+        const  menuItems = await prisma. menuItem.findMany({
+            where: {
+                kitchenId: paramId
+            }
+        })
+        console.log('kitchenId:', paramId)
         return res.json( menuItems);
     },
 
+    async deleteItem(req: Request, res: Response) {
+        const paramId = req.params.id;
+
+        const deletedItem = await prisma.menuItem.delete({
+            where: {
+                id: paramId,
+            }
+        }); 
+
+        return res.json({ deletedItem: deletedItem });
+    }
     // async readImage(req: Request, res: Response) {
     //     const paramsGetObject = {
     //         Bucket: bucketName,

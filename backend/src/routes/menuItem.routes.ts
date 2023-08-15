@@ -11,7 +11,8 @@ const routes = Router();
 
 routes.post("/", upload.single('file'), userController.authmiddleware, menuItemController.createMenuItem)
 routes.get("/:id", menuItemController.findUniqueMenuItem);
-routes.get("/", menuItemController.findAllMenuItems);
+routes.get("/kitchen/:kitchenId", menuItemController.findAllMenuItems);
+routes.delete("/:id", menuItemController.deleteItem);
 // routes.get("/image", )
 
 export default routes;

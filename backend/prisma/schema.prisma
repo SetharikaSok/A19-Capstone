@@ -26,7 +26,14 @@ model User {
 model Kitchen {
   id           String @id @default(cuid())
   name         String
-  address      String
+  address1      String @default("")
+  address2      String @default("")
+  city          String @default("")
+  state         String @default("")
+  country       String @default("")
+  zipcode       String @default("")
+  latitude      String @default("")
+  longitude     String @default("")
   contactNumber String
   cuisineType  String
   imgUrl       String @default("")

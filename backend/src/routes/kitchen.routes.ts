@@ -13,5 +13,8 @@ const routes = Router();
 routes.post("/",  upload.single('file'),userController.authmiddleware, kitchenController.createKitchen)
 routes.get("/:id", kitchenController.findUniqueKitchen);
 routes.get("/", kitchenController.findAllKitchens);
+routes.delete("/:id", kitchenController.deleteKitchen);
+// This route use tp emty the contenct of all table in database.
+routes.delete("/", kitchenController.deleteAll);
 
 export default routes;
